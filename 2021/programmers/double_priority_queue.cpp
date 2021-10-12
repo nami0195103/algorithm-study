@@ -1,48 +1,31 @@
 #include <string>
 #include <vector>
-#include <queue>
+#include <set>
 
 using namespace std;
 
 vector<int> solution(vector<string> operations) {
     vector<int> answer;
-    priority_queue<int> maxheap;
-    priority_queue<int, vector<int>, greater<int>> minheap;
-    int i, tmp, insert = 0;
+    multiset<int> ms;
+    string str;
     
-    for (i = 0; i < operations.size(); i++) {
-        if (operations[i][0] == 'I') {
-            tmp = stoi(operations[i].substr(2));
-            maxheap.push(tmp);
-            minheap.push(tmp);
-            insert++;
-        }
-        else {
-            if (insert == minheap.size() + maxheap.size()) {
-                continue;
-            }
-            
-            if (operations[i][2] == '1') {
-                maxheap.pop();
+    for (auto s:operations) {
+        if (s[0] == 'I')
+            ms.insert(stoi(s.substr(2)));
+        else if (!ms.empty()) {
+            if (s[2] == '1') {
+                ms.erase(--ms.end());
             }
             else
-                minheap.pop();
-            
-            if (insert == minheap.size() + maxheap.size()) {
-                while (!maxheap.empty())
-                    maxheap.pop();
-                while (!minheap.empty())
-                    minheap.pop();
-                insert = 0;
-            }
+                ms.erase(ms.begin());
         }
     }
-
-    if (insert == minheap.size() + maxheap.size())
-        answer = {0,0};
+    
+    if (ms.empty())
+        answer = {0, 0};
     else {
-        answer.push_back(maxheap.top());
-        answer.push_back(minheap.top());
+        answer.push_back(*(--ms.end()));
+        answer.push_back(*(ms.begin()));
     }
     
     return answer;
