@@ -11,7 +11,7 @@ int main() {
 	vector<int> in_deg;	//진입차수
 	queue<int> q;
 
-	//초기화 - DAG 아닌 그래프 확인해야 할 수도 있음
+	//초기화
 	scanf("%d %d", &n, &m);
 	edge.assign(n + 1, vector<int>(0));
 	in_deg.assign(n + 1, 0);
@@ -29,6 +29,7 @@ int main() {
 	}
 
 	//위상정렬
+	//queue가 비었는데 방문하지 않은 정점이 있다면 사이클 존재(for문으로 n번만 반복문 수행)
 	while (!q.empty()) {
 		i = q.front();
 		q.pop();
