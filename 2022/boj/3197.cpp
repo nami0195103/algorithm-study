@@ -1,4 +1,4 @@
-//bfs - 매번 모든 맵에 대해 하는 것이 아니라 이전에 탐색하지 않았던 영역에 대해서만 bfs 수행하도록
+//bfs - 매번 전체 맵에 대해 하는 것이 아니라 이전에 탐색하지 않았던 영역에 대해서만 bfs 수행하도록
 #include <iostream>
 #include <queue>
 #include <utility>
